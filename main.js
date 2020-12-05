@@ -16,6 +16,8 @@ const schema = {
     Uncompounded: "string",
     Phonetic: "string",
     Scansion: "string",
+    ScansionWithElision: "string",
+    IsFitForDactyl: "int",
     AllVowels: "string",
     SyllableCount: "int",
     Stress: "int",
@@ -37,8 +39,6 @@ const schema = {
     // Lemma3: "string",
     // Lemma4: "string",
     // Lemma5: "string",
-    ScansionWithElision: "string",
-    IsFitForDactyl: "int",
     LemmaArray: "array",
     IsLemma: "int",
     IsNonLemma: "int",
@@ -70,17 +70,23 @@ const generateJson = () => {
     for (let i = 0; i < countRows; i++) {
         const rowOfValues = valueRows[i].split("\t");
         output("{");
+
+        let valuesAsObject = {};
         for (let j = 0; j < countColumns; j++) {
             const currentKey = keys[j];
             const currentValue = rowOfValues[j];
+            valuesAsObject[currentKey] = currentValue;
+        }
+
+        for (let currentKey in schema) {
+            const currentValue = valuesAsObject[currentKey];
             const lineTerminator = currentKey == lastKey ? "" : ",";
-            // console.log(currentKey, currentValue, schema[currentKey]);
             switch (schema[currentKey]) {
                 case "int":
                     output(`"${currentKey}": ${currentValue}${lineTerminator}`);
                     break;
                 case "string":
-                    output(`"${currentKey}": "${currentValue}"${lineTerminator}`);
+                    output(`"${currentKey}": ${currentValue ? `"${currentValue}"` : "0"}${lineTerminator}`);
                     break;
                 case "array":
                     output(`"${currentKey}": ${currentValue}${lineTerminator}`);
