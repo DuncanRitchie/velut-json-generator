@@ -1,0 +1,32 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+main {
+    margin-left: auto;
+    margin-right: auto;
+    width: calc(100vw - 2rem);
+    max-width: 48rem; 
+}
+
+h1 {
+    margin-top: 2rem;
+}
+
+textarea {
+    width: 100%;
+    min-height: 5rem;
+}
+
+button {
+    font-size: inherit;
+    font-family: inherit;
+    padding: 0.25rem 0.5rem;
+    display: block;
+    margin-left: auto;
+    margin-right: 0;
+    cursor: pointer;
+}
