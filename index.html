@@ -3,21 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Duncan’s Json Generator</title>
+    <title>Duncan’s Json Generator for velut</title>
     <link rel="shortcut icon" href="https://www.duncanritchie.co.uk/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://www.duncanritchie.co.uk/css/main.css">
     <link rel="stylesheet" href="./main.css">
-    <!-- <link rel="stylesheet" href="https://www.duncanritchie.co.uk/css/main.css"> -->
 </head>
 <body>
     <main>
-        <h1>Duncan’s Json Generator</h1>
+        <h1>Duncan’s Json Generator for velut</h1>
         <label for="textarea-input">Paste from Excel here:</label><br/>
         <textarea id="textarea-input"></textarea><br/>
         <button id="generate-json">Generate Json</button><br/>
         <label for="textarea-output">Output Json:</label><br/>
         <textarea id="textarea-output" readonly></textarea>
         <button id="copy-to-clipboard">Copy to Clipboard</button>
+
+        <section>
+            <h2>About</h2>
+            <p>
+                <a href="https://www.velut.co.uk/" title="velut — a Latin rhyming dictionary">velut</a> is my Latin vocabulary website, which uses a MongoDB database. But I generate and store all the data for it in a private Excel file. To get my Excel data into MongoDB, I copy an entire table into the field below, generate the Json, copy it into a .json file on my computer, then run a mongoimport command to replace my MongoDB data with the new Json.
+            </p>
+            <p>
+                If this sounds a bit convoluted, that’s fair enough. If you’re thinking I should automate it more, you’re probably right. If you question the rationality of using Excel for all the things I’m currently using it for, I don’t disagree. Over time I will make further adjustments to how I manage and upload the data, but this is where I’m at now.
+            </p>
+            <p>
+                For this page to work correctly, what you input has to match my pre-defined schema. The first row must be the header row. Fields are tab-delimited. This is true when I am copying the table from Excel.
+            </p>
+        </section>
     </main>
+    <footer>
+        <ul>
+            <li>
+                <a href="https://www.duncanritchie.co.uk/" title="Duncan Ritchie’s website">Made by Duncan Ritchie</a>
+            </li>
+            <li>
+                <a href="https://github.com/DuncanRitchie/velut-json-generator" title="Code for this page on GitHub">See the code</a>
+            </li>
+        </ul>
+    </footer>
     <script src="./main.js"></script>
 </body>
 </html>
