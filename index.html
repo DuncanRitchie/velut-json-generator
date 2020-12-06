@@ -12,7 +12,11 @@
 <body>
     <main>
         <h1>Duncan’s Json Generator for velut</h1>
-        <label for="textarea-input">Paste from Excel here:</label><br/>
+        <div>
+            <button id="load-sample-data-lemmata">Load Lemmata sample</button>
+            <button id="load-sample-data-words">Load Words sample</button>
+        </div>
+        <label for="textarea-input">Paste from Excel here (or use sample):</label><br/>
         <textarea id="textarea-input"></textarea><br/>
         <div>
             <span id="text-by-generate-json"></span>
@@ -28,13 +32,19 @@
         <section>
             <h2>About</h2>
             <p>
-                <a href="https://www.velut.co.uk/" title="velut — a Latin rhyming dictionary">velut</a> is my Latin vocabulary website, which uses a MongoDB database. But I generate and store all the data for it in a private Excel file. To get my Excel data into MongoDB, I copy an entire table into the field below, generate the Json, copy it into a .json file on my computer, then run a mongoimport command to replace my MongoDB data with the new Json.
+                <a href="https://www.velut.co.uk/" title="velut — a Latin rhyming dictionary">velut</a> is my Latin vocabulary website, which uses a MongoDB database with two collections (“words” and “lemmata”). But I generate and store all the data for it in a private Excel file. To get my Excel data into MongoDB, I copy an entire table (either “words” or “lemmata”) into the field above, generate the Json, copy it into a .json file on my computer, then run a mongoimport command to replace my MongoDB data with the new Json.
             </p>
             <p>
                 If this sounds a bit convoluted, that’s fair enough. If you’re thinking I should automate it more, you’re probably right. If you question the rationality of using Excel for all the things I’m currently using it for, I don’t disagree. Over time I will make further adjustments to how I manage and upload the data, but this is where I’m at now.
             </p>
             <p>
-                For this page to work correctly, what you input has to match my pre-defined schema. The first row must be the header row. Fields are tab-delimited. This is true when I am copying the table from Excel.
+                For this page to work correctly, what you input has to match my pre-defined schema (for either “words” or “lemmata”). The first row must be the header row. Fields are tab-delimited. This is true when I am copying the table from Excel.
+            </p>
+            <p>
+                Columns in the input that are not in my schema will not appear in the output Json.
+            </p>
+            <p>
+                If you’re not me, you won’t have access to the Excel file I store all the data for velut in. You can load a small amount of sample data using the buttons at the top of the page, so you can still see what this page does.
             </p>
         </section>
     </main>
