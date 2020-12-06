@@ -129,6 +129,10 @@ const getLastKey = (schema) => {
     return keys[keys.length - 1];
 }
 
+const clearTextMessages = () => {
+    textByGenerateJson.textContent = "";
+    textByCopyToClipboard.textContent = "";
+}
 
 //// `outputArray` gets modified by `generateJson` and displayed in the second text-area by `displayOutput`.
 
@@ -142,8 +146,8 @@ const output = (line) => {
 //// Functions called by buttons:
 
 const generateJson = () => {
+    clearTextMessages();
     textByGenerateJson.textContent = "Generating Json, please wait...";
-    textByCopyToClipboard.textContent = "";
     outputArray.length = 0; // Clear the output in case there’s anything from previous runs.
     const allInputRows = textareaInput.value.split("\n");
     const headerRow = allInputRows[0].split("\t");
@@ -204,8 +208,8 @@ const displayOutput = () => {
 }
 
 const copyToClipboard = () => {
+    clearTextMessages();
     textByCopyToClipboard.textContent = "Copying to clipboard...";
-    textByGenerateJson.textContent = "";
     textareaOutput.select();
     document.execCommand("copy");
     textByCopyToClipboard.textContent = "Copied!";
@@ -216,10 +220,12 @@ const copyToClipboard = () => {
 
 buttonLoadSampleDataLemmata.addEventListener("click", ()=>{
     textareaInput.value = sampleDataLemmata;
+    clearTextMessages();
 });
 
 buttonLoadSampleDataWords.addEventListener("click", ()=>{
     textareaInput.value = sampleDataWords;
+    clearTextMessages();
 });
 
 buttonGenerateJson.addEventListener("click", ()=>{
