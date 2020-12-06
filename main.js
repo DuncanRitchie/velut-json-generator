@@ -11,6 +11,9 @@ const buttonCopyToClipboard = document.getElementById("copy-to-clipboard");
 
 textareaOutput.value = "";
 
+
+//// Schemata. Commented-out properties will not be used.
+
 const wordsSchema = {
     Ord: "int",
     Word: "string",
@@ -74,6 +77,9 @@ const lemmataSchema = {
     NoMacraLowerCase: "string",
 };
 
+
+//// Sample data the user can load if they don’t have my Excel file:
+
 const sampleDataLemmata = 
 `Ord	Lemma	PartOfSpeech	Meanings	Notes	Transliterations	Scansion	SyllableCount	Root	FormCount	NoTypeTag	NoMacra	NoMacraLowerCase
 8483	excellō	Verb	excel; be distinguished; ‘excelsus’ = distinguished			–––	3	collis	48	excellō	excello	excello
@@ -97,6 +103,9 @@ const sampleDataWords =
 89782	Latīnōrum	Latīnus[prn] Latīnus[adj]	9	ltnrm	Latīnōrum	latīnōrũ	⏑–––	aīōũ	4	2	ũ	ōũ	ōrũ	aram	'2 ũ	ōũ	latinorum	aiou	ou	oum	orum	ou-aram-ia-natal-latizzzznozzzzrum	2	Latīnus[prn]	Latīnus[adj]				⏑––	1	["Latīnus[prn]","Latīnus[adj]"]	0	1			Latinorum	latinorum	ailmnortu	ozzzzuzzzzzz-ara-izzzza-nizzzztal-latīnōrum
 `
 
+
+//// Functions used in `generateJson`:
+
 const getSchemaFromHeaderRow = (headerRow) => {
     switch (headerRow[1]) {
         case "Word":
@@ -108,7 +117,7 @@ const getSchemaFromHeaderRow = (headerRow) => {
     }
 }
 
-const getEmptyTextReplacementFromHeaderRow = (headerRow) => {
+const getEmptyTextRepresentation = (headerRow) => {
     switch (headerRow[1]) {
         case "Word":
             return "0";
@@ -122,42 +131,56 @@ const getLastKey = (schema) => {
     return keys[keys.length - 1];
 }
 
+
+//// `outputArray` gets modified by `generateJson` and displayed in the second text-area by `displayOutput`.
+
 let outputArray = [];
 
 const output = (line) => {
     outputArray.push(line);
 }
 
+
+//// Functions called by buttons:
+
 const generateJson = () => {
     textByGenerateJson.textContent = "Generating Json, please wait...";
     textByCopyToClipboard.textContent = "";
-    outputArray.length = 0;
+    outputArray.length = 0; // Clear the output in case there’s anything from previous runs.
     const allInputRows = textareaInput.value.split("\n");
     const headerRow = allInputRows[0].split("\t");
     const schema = getSchemaFromHeaderRow(headerRow);
-    const emptyTextReplacement = getEmptyTextReplacementFromHeaderRow(headerRow);
-    const lastKeyInSchema = getLastKey(schema);
-    const countColumns = headerRow.length;
-    const valueRows = allInputRows.slice(1);
+    const emptyTextReplacement = getEmptyTextRepresentation(headerRow); // Empty string fields are represented differently in “words” than in “lemmata”.
+    const lastKeyInSchema = getLastKey(schema); // This is used to prevent trailing commas.
+    const countColumnsInInput = headerRow.length;
+    const valueRows = allInputRows.slice(1); // All rows except the header row.
     const countRows = valueRows.length;
     console.log(countRows);
     console.log(headerRow);
+
+    //// For each line of values in the input...
     for (let i = 0; i < countRows; i++) {
+        //// Skip empty lines.
         if (valueRows[i] == "") { continue; }
 
         const rowOfValues = valueRows[i].split("\t");
         output("{");
 
+        //// Create an object that maps each key in `headerRow` to the value in the current row.
         let valuesAsObject = {};
-        for (let j = 0; j < countColumns; j++) {
+        for (let j = 0; j < countColumnsInInput; j++) {
             const currentKey = headerRow[j];
             const currentValue = rowOfValues[j];
             valuesAsObject[currentKey] = currentValue;
         }
 
+        //// Fields will be added to the output in the order they appear in the schema.
         for (let currentKey in schema) {
             const currentValue = valuesAsObject[currentKey];
+            //// Decide whether there should be a comma after the key–value pair.
             const lineTerminator = currentKey == lastKeyInSchema ? "" : ",";
+            //// Use the types defined in the schema to determine the format.
+            //// Strings need to be quoted, but other values do not.
             switch (schema[currentKey]) {
                 case "int":
                     output(`"${currentKey}": ${currentValue ? currentValue : "null"}${lineTerminator}`);
@@ -166,6 +189,7 @@ const generateJson = () => {
                     output(`"${currentKey}": ${currentValue ? `"${currentValue}"` : emptyTextReplacement}${lineTerminator}`);
                     break;
                 case "array":
+                    //// My value from Excel is always valid Json for an array of strings.
                     output(`"${currentKey}": ${currentValue}${lineTerminator}`);
                     break;
                 default:
@@ -190,6 +214,9 @@ const copyToClipboard = () => {
     document.execCommand("copy");
     textByCopyToClipboard.textContent = "Copied!";
 }
+
+
+//// Event listeners.
 
 buttonLoadSampleDataLemmata.addEventListener("click", ()=>{
     console.log("“Load Lemmata sample” button clicked!")
