@@ -37,12 +37,18 @@ textarea {
     min-height: 5rem;
 }
 
+main div {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
 button {
     font-size: inherit;
     font-family: inherit;
     padding: 0.25rem 0.5rem;
     display: block;
-    margin-left: auto;
+    margin-left: 1rem;
     margin-right: 0;
     cursor: pointer;
 }

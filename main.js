@@ -1,8 +1,10 @@
 console.log("Hello from JavaScript!");
 
 const textareaInput = document.getElementById("textarea-input");
+const textByGenerateJson = document.getElementById("text-by-generate-json");
 const buttonGenerateJson = document.getElementById("generate-json");
 const textareaOutput = document.getElementById("textarea-output");
+const textByCopyToClipboard = document.getElementById("text-by-copy-to-clipboard");
 const buttonCopyToClipboard = document.getElementById("copy-to-clipboard");
 
 textareaOutput.value = "";
@@ -102,6 +104,8 @@ const output = (line) => {
 }
 
 const generateJson = () => {
+    textByGenerateJson.textContent = "Generating Json, please wait...";
+    textByCopyToClipboard.textContent = "";
     outputArray.length = 0;
     const allInputRows = textareaInput.value.split("\n");
     const headerRow = allInputRows[0].split("\t");
@@ -145,6 +149,7 @@ const generateJson = () => {
         output("}")
     }
     displayOutput();
+    textByGenerateJson.textContent = "Json generated!";
 }
 
 const displayOutput = () => {
@@ -152,8 +157,11 @@ const displayOutput = () => {
 }
 
 const copyToClipboard = () => {
+    textByCopyToClipboard.textContent = "Copying to clipboard...";
+    textByGenerateJson.textContent = "";
     textareaOutput.select();
     document.execCommand("copy");
+    textByCopyToClipboard.textContent = "Copied!";
 }
 
 buttonGenerateJson.addEventListener("click", ()=>{
