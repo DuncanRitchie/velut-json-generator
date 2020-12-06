@@ -113,11 +113,13 @@ const generateJson = () => {
     const emptyTextReplacement = getEmptyTextReplacementFromHeaderRow(headerRow);
     const lastKeyInSchema = getLastKey(schema);
     const countColumns = headerRow.length;
-    const valueRows = allInputRows.slice(1, -1); // -1 only useful if last line is guaranteed to be empty.
+    const valueRows = allInputRows.slice(1);
     const countRows = valueRows.length;
     console.log(countRows);
     console.log(headerRow);
     for (let i = 0; i < countRows; i++) {
+        if (valueRows[i] == "") { continue; }
+
         const rowOfValues = valueRows[i].split("\t");
         output("{");
 
