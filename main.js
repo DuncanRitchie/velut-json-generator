@@ -1,5 +1,3 @@
-console.log("Hello from JavaScript!");
-
 const buttonLoadSampleDataLemmata = document.getElementById("load-sample-data-lemmata");
 const buttonLoadSampleDataWords = document.getElementById("load-sample-data-words");
 const textareaInput = document.getElementById("textarea-input");
@@ -155,8 +153,6 @@ const generateJson = () => {
     const countColumnsInInput = headerRow.length;
     const valueRows = allInputRows.slice(1); // All rows except the header row.
     const countRows = valueRows.length;
-    console.log(countRows);
-    console.log(headerRow);
 
     //// For each line of values in the input...
     for (let i = 0; i < countRows; i++) {
@@ -219,21 +215,17 @@ const copyToClipboard = () => {
 //// Event listeners.
 
 buttonLoadSampleDataLemmata.addEventListener("click", ()=>{
-    console.log("“Load Lemmata sample” button clicked!")
     textareaInput.value = sampleDataLemmata;
 });
 
 buttonLoadSampleDataWords.addEventListener("click", ()=>{
-    console.log("“Load Words sample” button clicked!")
     textareaInput.value = sampleDataWords;
 });
 
 buttonGenerateJson.addEventListener("click", ()=>{
-    console.log("“Generate Json” button clicked!")
     generateJson();
 });
 
 buttonCopyToClipboard.addEventListener("click", ()=>{
-    console.log("“Copy to Clipboard” button clicked!")
     copyToClipboard();
 });
