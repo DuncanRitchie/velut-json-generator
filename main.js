@@ -7,7 +7,7 @@ const buttonCopyToClipboard = document.getElementById("copy-to-clipboard");
 
 textareaOutput.value = "";
 
-const schema = {
+const wordsSchema = {
     Ord: "int",
     Word: "string",
     // Lemmata: "string",
@@ -49,9 +49,51 @@ const schema = {
     AlphOrderNoMacra: "string",
     Sort: "string",
     // RepeatWord: "string",
+};
+
+const lemmataSchema = {
+    Ord: "int",
+    Lemma: "string",
+    PartOfSpeech: "string",
+    Meanings: "string",
+    Notes: "string",
+    Transliterations: "string",
+    // SpareCol: "string",
+    // RootCheck: "string",
+    Scansion: "string",
+    SyllableCount: "int",
+    Root: "string",
+    // FreqRank: "int",
+    FormCount: "int",
+    NoTypeTag: "string",
+    NoMacra: "string",
+    NoMacraLowerCase: "string",
+};
+
+const getSchemaFromHeaderRow = (headerRow) => {
+    switch (headerRow[1]) {
+        case "Word":
+            return wordsSchema;
+        case "Lemma":
+            return lemmataSchema;
+        default:
+            return;
+    }
 }
 
-const lastKey = "Sort";
+const getEmptyTextReplacementFromHeaderRow = (headerRow) => {
+    switch (headerRow[1]) {
+        case "Word":
+            return "0";
+        default:
+            return "null";
+    }
+}
+
+const getLastKey = (schema) => {
+    const keys = Object.keys(schema);
+    return keys[keys.length - 1];
+}
 
 let outputArray = [];
 
@@ -60,33 +102,37 @@ const output = (line) => {
 }
 
 const generateJson = () => {
+    outputArray.length = 0;
     const allInputRows = textareaInput.value.split("\n");
-    const keys = allInputRows[0].split("\t");
-    const countColumns = keys.length;
-    const valueRows = allInputRows.slice(1, -1);
+    const headerRow = allInputRows[0].split("\t");
+    const schema = getSchemaFromHeaderRow(headerRow);
+    const emptyTextReplacement = getEmptyTextReplacementFromHeaderRow(headerRow);
+    const lastKeyInSchema = getLastKey(schema);
+    const countColumns = headerRow.length;
+    const valueRows = allInputRows.slice(1, -1); // -1 only useful if last line is guaranteed to be empty.
     const countRows = valueRows.length;
     console.log(countRows);
-    console.log(keys);
+    console.log(headerRow);
     for (let i = 0; i < countRows; i++) {
         const rowOfValues = valueRows[i].split("\t");
         output("{");
 
         let valuesAsObject = {};
         for (let j = 0; j < countColumns; j++) {
-            const currentKey = keys[j];
+            const currentKey = headerRow[j];
             const currentValue = rowOfValues[j];
             valuesAsObject[currentKey] = currentValue;
         }
 
         for (let currentKey in schema) {
             const currentValue = valuesAsObject[currentKey];
-            const lineTerminator = currentKey == lastKey ? "" : ",";
+            const lineTerminator = currentKey == lastKeyInSchema ? "" : ",";
             switch (schema[currentKey]) {
                 case "int":
-                    output(`"${currentKey}": ${currentValue}${lineTerminator}`);
+                    output(`"${currentKey}": ${currentValue ? currentValue : "null"}${lineTerminator}`);
                     break;
                 case "string":
-                    output(`"${currentKey}": ${currentValue ? `"${currentValue}"` : "0"}${lineTerminator}`);
+                    output(`"${currentKey}": ${currentValue ? `"${currentValue}"` : emptyTextReplacement}${lineTerminator}`);
                     break;
                 case "array":
                     output(`"${currentKey}": ${currentValue}${lineTerminator}`);
@@ -95,6 +141,7 @@ const generateJson = () => {
                     break;
             }
         }
+
         output("}")
     }
     displayOutput();
