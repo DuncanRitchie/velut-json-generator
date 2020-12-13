@@ -111,8 +111,16 @@ const getSchemaFromHeaderRow = (headerRow) => {
         case "Lemma":
             return lemmataSchema;
         default:
-            return;
+            return generateSchemaFromCustomHeaderRow(headerRow);
     }
+}
+
+const generateSchemaFromCustomHeaderRow = (headerRow) => {
+    let newSchema = {};
+    for (let i = 0; i < headerRow.length; i++) {
+        newSchema[headerRow[i]] = "string";
+    }
+    return newSchema;
 }
 
 const getEmptyTextRepresentation = (headerRow) => {
