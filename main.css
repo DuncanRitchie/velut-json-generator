@@ -35,6 +35,7 @@ textarea {
     padding: 0.5rem;
     width: calc(100% - 1rem);
     min-height: 5rem;
+    resize: vertical;
 }
 
 main div {
