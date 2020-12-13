@@ -38,13 +38,19 @@
                 If this sounds a bit convoluted, that’s fair enough. If you’re thinking I should automate it more, you’re probably right. If you question the rationality of using Excel for all the things I’m currently using it for, I don’t disagree. Over time I will make further adjustments to how I manage and upload the data, but this is where I’m at now.
             </p>
             <p>
-                For this page to work correctly, what you input has to match my pre-defined schema (for either “words” or “lemmata”). The first row must be the header row. Fields are tab-delimited. This is true when I am copying the table from Excel.
+                For this page to work correctly, each row must be a record, except the first row which is the header row, and fields must be tab-delimited. This is true when I am copying the table from Excel.
             </p>
             <p>
-                Columns in the input that are not in my schema will not appear in the output Json.
+                I have two pre-defined schemata: words and lemmata. If the second column is “Word”, this page will assume you’re using the “words” schema. If the second column is “Lemma”, this page will assume you’re using the “lemmata” schema. Columns in the input that are not in my schema will not appear in the output Json.
             </p>
             <p>
-                If you’re not me, you won’t have access to the Excel file I store all the data for velut in. You can load a small amount of sample data using the buttons at the top of the page, so you can still see what this page does.
+                If the second column is something else, this page will not use my schemata, but will attempt to convert your input to Json, with all the fields you specify. Be aware that the fields might not be the data-type you want, and might not even be valid Json.
+            </p>
+            <p>
+                The Json generated does not have commas separating the objects, or square brackets around the entire array. This is not the standard Json format, but is the format required by mongoimport.
+            </p>
+            <p>
+                If you’re not me, you won’t have access to the Excel file I store all the data for velut in. You can load a small amount of sample data using the buttons at the top of the page, so you can still see what this page does. Or you can paste your own data in.
             </p>
         </section>
     </main>
