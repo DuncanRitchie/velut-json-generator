@@ -1,3 +1,4 @@
+const buttonClearInputs = document.getElementById("clear-inputs");
 const buttonLoadSampleDataLemmata = document.getElementById("load-sample-data-lemmata");
 const buttonLoadSampleDataWords = document.getElementById("load-sample-data-words");
 const textareaInput = document.getElementById("textarea-input");
@@ -142,6 +143,12 @@ const clearTextMessages = () => {
     textByCopyToClipboard.textContent = "";
 }
 
+const clearInputs = () => {
+    textareaInput.value = "";
+    textareaOutput.value = "";
+    clearTextMessages();
+}
+
 //// `outputArray` gets modified by `generateJson` and displayed in the second text-area by `displayOutput`.
 
 let outputArray = [];
@@ -225,6 +232,10 @@ const copyToClipboard = () => {
 
 
 //// Event listeners.
+
+buttonClearInputs.addEventListener("click", ()=>{
+    clearInputs();
+});
 
 buttonLoadSampleDataLemmata.addEventListener("click", ()=>{
     textareaInput.value = sampleDataLemmata;
