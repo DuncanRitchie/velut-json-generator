@@ -7,6 +7,7 @@ const buttonGenerateJson = document.getElementById("generate-json");
 const textareaOutput = document.getElementById("textarea-output");
 const textByCopyToClipboard = document.getElementById("text-by-copy-to-clipboard");
 const buttonCopyToClipboard = document.getElementById("copy-to-clipboard");
+const buttonDownload = document.getElementById("download");
 
 textareaOutput.value = "";
 
@@ -108,10 +109,13 @@ const sampleDataWords =
 const getSchemaFromHeaderRow = (headerRow) => {
     switch (headerRow[1]) {
         case "Word":
+            tableName = "words";
             return wordsSchema;
         case "Lemma":
+            tableName = "lemmata";
             return lemmataSchema;
         default:
+            tableName = "custom";
             return generateSchemaFromCustomHeaderRow(headerRow);
     }
 }
@@ -148,6 +152,8 @@ const clearInputs = () => {
     textareaOutput.value = "";
     clearTextMessages();
 }
+
+let tableName = "custom"; //// "custom", "lemmata", "words".
 
 //// `outputArray` gets modified by `generateJson` and displayed in the second text-area by `displayOutput`.
 
@@ -230,6 +236,16 @@ const copyToClipboard = () => {
     textByCopyToClipboard.textContent = "Copied!";
 }
 
+const download = () => {
+    let a = document.createElement('a');
+    a.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(textareaOutput.value));;
+    a.setAttribute('download', tableName + "_mongo.json");
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    clearTextMessages();
+}
+
 
 //// Event listeners.
 
@@ -253,4 +269,8 @@ buttonGenerateJson.addEventListener("click", ()=>{
 
 buttonCopyToClipboard.addEventListener("click", ()=>{
     copyToClipboard();
+});
+
+buttonDownload.addEventListener("click", ()=>{
+    download();
 });
