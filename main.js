@@ -153,6 +153,16 @@ const clearInputs = () => {
     clearTextMessages();
 }
 
+const warnOfEmptyInput = () => {
+    clearTextMessages();
+    textByGenerateJson.textContent = "Nothing to generate Json from!";
+}
+
+const warnOfEmptyOutput = () => {
+    clearTextMessages();
+    textByCopyToClipboard.textContent = "Nothing to copy or download!";
+}
+
 let tableName = "custom"; //// "custom", "lemmata", "words".
 
 //// `outputArray` gets modified by `generateJson` and displayed in the second text-area by `displayOutput`.
@@ -236,7 +246,7 @@ const copyToClipboard = () => {
     textByCopyToClipboard.textContent = "Copied!";
 }
 
-const download = () => {
+const download = () => {    
     let a = document.createElement('a');
     a.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(textareaOutput.value));;
     a.setAttribute('download', tableName + "_mongo.json");
@@ -264,13 +274,28 @@ buttonLoadSampleDataWords.addEventListener("click", ()=>{
 });
 
 buttonGenerateJson.addEventListener("click", ()=>{
-    generateJson();
+    if (textareaInput.value === "") {
+        warnOfEmptyInput();
+    }
+    else {
+        generateJson();
+    }
 });
 
 buttonCopyToClipboard.addEventListener("click", ()=>{
-    copyToClipboard();
+    if (textareaOutput.value === "") {
+        warnOfEmptyOutput();
+    }
+    else {
+        copyToClipboard();
+    }
 });
 
 buttonDownload.addEventListener("click", ()=>{
-    download();
+    if (textareaOutput.value === "") {
+        warnOfEmptyOutput();
+    }
+    else {    
+        download();
+    }
 });
