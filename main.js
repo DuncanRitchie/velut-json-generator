@@ -248,7 +248,7 @@ const copyToClipboard = () => {
 
 const download = () => {    
     let a = document.createElement('a');
-    a.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(textareaOutput.value));;
+    a.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(textareaOutput.value.replace(/\n/g, "\r\n")));;
     a.setAttribute('download', tableName + "_mongo.json");
     document.body.appendChild(a);
     a.click();
