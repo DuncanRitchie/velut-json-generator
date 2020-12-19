@@ -1,7 +1,7 @@
 # Duncan’s Json Generator for velut
 [See it live on Netlify.](https://velut-json-generator.netlify.app/)
 
-An extremely rudimentary webpage for converting tab-delimited data to mongoimport-flavoured Json. Useful for me, but possibly no-one else.
+A rudimentary webpage for converting tab-delimited data to mongoimport-flavoured Json. Useful for me, but possibly no-one else.
 
 ## How it works for me
 I have a website, named [velut](https://github.com/DuncanRitchie/velut), that fetches Latin vocabulary from a MongoDB database. But I generate and store all the data for it in Excel, in a 90MB+ file with many elaborate formulae. I made this Json generator to ease the process of passing my Excel data up to MongoDB.
@@ -10,7 +10,7 @@ All the data for velut are in two Excel tables, which correspond to two MongoDB 
 
 Since I’m always copying from either my “words” table or my “lemmata” table (including the header-row), the generator will pick the correct schema and generate the Json accordingly.
 
-I copy the resulting Json into a file, which is in a private repo, check the diff and ensure the data are all correct, commit it, and then run a mongoimport command to import it into the database. So I can say that this Json generator works for my extremely limited use of it, and that’s good enough for me for the time being.
+I copy (or download) the resulting Json into a file, which is in a private repo, check the diff and ensure the data are all correct, commit it, and then run a mongoimport command to import it into the database. So I can say that this Json generator works for my extremely limited use of it, and that’s good enough for me for the time being.
 
 Since I add vocabulary to my Excel file at least once a month, I can go through this process fairly frequently.
 
