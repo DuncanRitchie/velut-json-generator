@@ -34,7 +34,7 @@
         <section>
             <h2>About</h2>
             <p>
-                <a href="https://www.velut.co.uk/" title="velut — a Latin rhyming dictionary">velut</a> is my Latin vocabulary website, which uses a MongoDB database with two collections (“words” and “lemmata”). But I generate and store all the data for it in a private Excel file. To get my Excel data into MongoDB, I copy an entire table (either “words” or “lemmata”) into the field above, generate the Json, copy it into a .json file on my computer, then run a mongoimport command to replace my MongoDB data with the new Json.
+                <a href="https://www.velut.co.uk/" title="velut — a Latin rhyming dictionary">velut</a> is my Latin vocabulary website, which uses a MongoDB database with two collections (“words” and “lemmata”). But I generate and store all the data for it in a private Excel file. To get my Excel data into MongoDB, I copy an entire table (either “words” or “lemmata”) into the field above, generate the Json, copy it into (or save it as) a .json file on my computer, then run a mongoimport command to replace my MongoDB data with the new Json.
             </p>
             <p>
                 If this sounds a bit convoluted, that’s fair enough. If you’re thinking I should automate it more, you’re probably right. If you question the rationality of using Excel for all the things I’m currently using it for, I don’t disagree. Over time I will make further adjustments to how I manage and upload the data, but this is where I’m at now.
