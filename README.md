@@ -1,12 +1,12 @@
 # Duncan’s Json Generator for velut
-[See it live on Netlify.](https://velut-json-generator.netlify.app/)
+[See it live.](https://www.duncanritchie.co.uk/velut-json-generator/)
 
 A rudimentary webpage for converting tab-delimited data to mongoimport-flavoured Json. Useful for me, but possibly no-one else.
 
 ## How it works for me
 I have a website, named [velut](https://github.com/DuncanRitchie/velut), that fetches Latin vocabulary from a MongoDB database. But I generate and store all the data for it in Excel, in a 90MB+ file with many elaborate formulae. I made this Json generator to ease the process of passing my Excel data up to MongoDB.
 
-All the data for velut are in two Excel tables, which correspond to two MongoDB databases and two schemata hardcoded into my Json generator. When I want to update the database, I copy a table from Excel, paste it into the first input box and click “Generate Json”.
+All the data for velut are in two Excel tables, which correspond to two MongoDB collections and two schemata hardcoded into my Json generator. When I want to update the database, I copy a table from Excel, paste it into the first input box and click “Generate Json”.
 
 Since I’m always copying from either my “words” table or my “lemmata” table (including the header-row), the generator will pick the correct schema and generate the Json accordingly.
 
