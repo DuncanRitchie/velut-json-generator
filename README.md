@@ -1,4 +1,4 @@
-# Duncan’s Json Generator for velut
+# Json Generator for velut
 [See it live.](https://www.duncanritchie.co.uk/velut-json-generator/)
 
 A rudimentary webpage for converting tab-delimited data to mongoimport-flavoured Json. Useful for me, but possibly no-one else.
