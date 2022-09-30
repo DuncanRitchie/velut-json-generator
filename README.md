@@ -14,6 +14,11 @@ I copy (or download) the resulting Json into a file, which is in a private repo,
 
 Since I add vocabulary to my Excel file at least once a month, I can go through this process fairly frequently.
 
+<ins>
+	Update: Now that I’ve made the <a href="https://github.com/DuncanRitchie/velut-word-data-generator/">velut Word Data Generator</a>, I no longer use this page for the “words” data.
+	I still use it for the “lemmata” data, but at some point I won’t use it for that either.
+</ins>
+
 ## Limitations
 I supply a few rows of sample data for each table so you can see the page working. However, if you’re copying from an Excel table of your own and your data don’t match one of my schemata, you may get strange results. I cannot guarantee that the data-types will be what you want, or that the Json will even be valid. (In fact, if there are any more than one row of data after the header-row, the Json is guaranteed to be invalid in contexts other than mongoimport, because the objects are not comma-delimited and not enclosed in square brackets as an array.)
 
