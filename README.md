@@ -1,7 +1,12 @@
 # Json Generator for velut
 [See it live.](https://www.duncanritchie.co.uk/velut-json-generator/)
 
-A rudimentary webpage for converting tab-delimited data to mongoimport-flavoured Json. Useful for me, but possibly no-one else.
+A rudimentary webpage for converting tab-delimited data to mongoimport-flavoured Json. It was useful for me, but possibly no-one else.
+
+I no longer have much use for it, because I’ve changed the architecture of my velut project to not involve Excel.
+If you have some data in Excel and you want it as Json, there are more sophisticated solutions than my Json generator, but occasionally it may be sufficient as something “quick and dirty”.
+
+**The text below was written while I still had use for the generator. I have not updated it.**
 
 ## How it works for me
 I have a website, named [velut](https://github.com/DuncanRitchie/velut), that fetches Latin vocabulary from a MongoDB database. But I generate and store all the data for it in Excel, in a 90MB+ file with many elaborate formulae. I made this Json generator to ease the process of passing my Excel data up to MongoDB.
