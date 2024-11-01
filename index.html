@@ -36,6 +36,13 @@
         <section>
             <h2>About</h2>
             <p>
+                <ins datetime="2024-11-01">
+                    Update from 2024: I no longer have much use for this generator.
+                    The following text was written while it was still useful.
+                    An explanation of how it obsolesced is at the end.
+                </ins>
+            </p>
+            <p>
                 <a href="https://www.velut.co.uk/" title="velut — a Latin rhyming dictionary">velut</a> is my Latin vocabulary website, which uses a MongoDB database with two collections (“words” and “lemmata”). But I generate and store all the data for it in a private Excel file. To get my Excel data into MongoDB, I copy an entire table (either “words” or “lemmata”) into the field above, generate the Json, copy it into (or save it as) a .json file on my computer, then run a mongoimport command to replace my MongoDB data with the new Json.
             </p>
             <p>
@@ -57,9 +64,17 @@
                 If you’re not me, you won’t have access to the Excel file I store all the data for velut in. You can load a small amount of sample data using the buttons at the top of the page, so you can still see what this page does. Or you can paste your own data in.
             </p>
             <p>
-                <ins>
-                    Update: Now that I’ve made the <a href="https://www.duncanritchie.co.uk/velut-word-data-generator/">velut Word Data Generator</a>, I no longer use this page for the “words” data.
+                <ins datetime="2022-09-30">
+                    Update from September 2022: Now that I’ve made the <a href="https://www.duncanritchie.co.uk/velut-word-data-generator/">velut Word Data Generator</a>, I no longer use this page for the “words” data.
                     I still use it for the “lemmata” data, but at some point I won’t use it for that either.
+                </ins>
+            </p>
+            <p>
+                <ins datetime="2024-11-01">
+                    Update from November 2024: I no longer use this page for the lemmata data (or for anything else).
+                    In October 2022, I converted the “lemmata” Excel sheet into Json for the last time, and began making the <a href="https://www.duncanritchie.co.uk/velut-inflector">velut Inflector</a>.
+                    The Json is now the “single source of truth” — I make changes to it, run the Inflector (and other scripts), and that creates whatever’s needed for the velut website.
+                    Neither Excel nor this generator are part of the process.
                 </ins>
             </p>
         </section>
