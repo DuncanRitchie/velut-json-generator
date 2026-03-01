@@ -186,15 +186,15 @@ const generateJson = () => {
     const emptyTextReplacement = getEmptyTextRepresentation(headerRow); // Empty string fields are represented differently in “words” than in “lemmata”.
     const lastKeyInSchema = getLastKey(schema); // This is used to prevent trailing commas.
     const countColumnsInInput = headerRow.length;
-    const valueRows = allInputRows.slice(1); // All rows except the header row.
-    const countRows = valueRows.length;
+    const countRows = allInputRows.length;
 
     //// For each line of values in the input...
-    for (let i = 0; i < countRows; i++) {
+    //// (We skip i==0 because that’s the header row.)
+    for (let i = 1; i < countRows; i++) {
         //// Skip empty lines.
-        if (valueRows[i] == "") { continue; }
+        if (allInputRows[i] == "") { continue; }
 
-        const rowOfValues = valueRows[i].split("\t");
+        const rowOfValues = allInputRows[i].split("\t");
         output("{");
 
         //// Create an object that maps each key in `headerRow` to the value in the current row.
